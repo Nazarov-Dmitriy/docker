@@ -1,0 +1,87 @@
+1.Загрузите образ busybox последней версии
+docker run -it --rm busybox
+docker> docker images
+REPOSITORY   TAG       IMAGE ID       CREATED      SIZE
+busybox      latest    2bd29714875d   2 days ago   1.24MB
+
+
+2.Запустите новый контейнер busybox с командой ping сайта netology.ru, и количеством пингов 7, поименуйте контейнер pinger
+docker> docker run -it --name pinger busybox ping -c 7 netology.ru
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 24.179/27.271/29.247 ms
+
+3.Выведите на список всех контейнеров - запущенных и остановленных
+docker> docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS                     PORTS     NAMES
+ec6b9f90e0de   busybox   "ping -c 7 netology.…"   3 minutes ago    Exited (0) 3 minutes ago             pinger
+
+4.Выведите на экран логи контейнера с именем pinger
+
+docker> docker logs pinger
+PING netology.ru (188.114.98.192): 56 data bytes
+64 bytes from 188.114.98.192: seq=0 ttl=37 time=28.941 ms
+64 bytes from 188.114.98.192: seq=1 ttl=37 time=26.966 ms
+64 bytes from 188.114.98.192: seq=2 ttl=37 time=26.651 ms
+64 bytes from 188.114.98.192: seq=3 ttl=37 time=27.528 ms
+64 bytes from 188.114.98.192: seq=4 ttl=37 time=27.385 ms
+64 bytes from 188.114.98.192: seq=5 ttl=37 time=29.247 ms
+64 bytes from 188.114.98.192: seq=6 ttl=37 time=24.179 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 24.179/27.271/29.247 ms
+
+5.Запустите второй раз контейнера с именем pinger
+
+docker> docker start pinger  
+pinger
+
+6.Выведите на список всех контейнеров - запущенных и остановленных
+docker> docker ps -a    
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS                          PORTS     NAMES
+c5e78b888a5b   busybox   "ping -c 7 netology.…"   2 minutes ago    Exited (0) About a minute ago             pinger
+
+7.Выведите на экран логи контейнера с именем pinger
+
+docker> docker logs pinger
+PING netology.ru (188.114.98.192): 56 data bytes
+64 bytes from 188.114.98.192: seq=0 ttl=37 time=28.964 ms
+64 bytes from 188.114.98.192: seq=1 ttl=37 time=25.610 ms
+64 bytes from 188.114.98.192: seq=2 ttl=37 time=26.774 ms
+64 bytes from 188.114.98.192: seq=3 ttl=37 time=22.396 ms
+64 bytes from 188.114.98.192: seq=4 ttl=37 time=27.093 ms
+64 bytes from 188.114.98.192: seq=5 ttl=37 time=23.420 ms
+64 bytes from 188.114.98.192: seq=6 ttl=37 time=24.132 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 22.396/25.484/28.964 ms
+PING netology.ru (188.114.98.192): 56 data bytes
+64 bytes from 188.114.98.192: seq=0 ttl=37 time=26.544 ms
+64 bytes from 188.114.98.192: seq=1 ttl=37 time=29.704 ms
+64 bytes from 188.114.98.192: seq=2 ttl=37 time=30.351 ms
+64 bytes from 188.114.98.192: seq=3 ttl=37 time=25.925 ms
+64 bytes from 188.114.98.192: seq=4 ttl=37 time=28.142 ms
+64 bytes from 188.114.98.192: seq=5 ttl=37 time=23.204 ms
+64 bytes from 188.114.98.192: seq=6 ttl=37 time=23.901 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 23.204/26.824/30.351 ms
+
+8.Определите по логам общее количество запусков команды ping и какое общее количество отправленых запросов
+2 pfgecrf 14 pfghjcjd
+
+9.Удалите контейнер с именем pinger
+docker> docker rm pinger
+pinger
+
+10.Удалите образ busybox
+docker> docker rmi busybox        
+Untagged: busybox:latest
+Untagged: busybox@sha256:ad9bd57a3a57cc95515c537b89aaa69d83a6df54c4050fcf2b41ad367bec0cd5
+Deleted: sha256:2bd29714875d9206777f9e8876033cbcd58edd14f2c0f1203435296b3f31c5f7
+Deleted: sha256:3e9498aeb76f9f5834ba3c6c8c7932daeb15b66064eeea54c25e9f31074ecffe
+docker> docker images     
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE

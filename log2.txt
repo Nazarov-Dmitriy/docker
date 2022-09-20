@@ -1,0 +1,38 @@
+1.Загрузите образ node версии 15.14
+
+ docker run -it --rm node:15.14-alpine
+Unable to find image 'node:15.14-alpine' locally
+15.14-alpine: Pulling from library/node
+ddad3d7c1e96: Pull complete
+0e18143e8d4d: Pull complete
+377ad682a98b: Pull complete
+99b3e0ba5237: Pull complete
+Digest: sha256:6edd37368174c15d4cc59395ca2643be8e2a1c9846714bc92c5f5c5a92fb8929
+Status: Downloaded newer image for node:15.14-alpine
+Welcome to Node.js v15.14.0.   
+
+2.Запустите контейнер node в интерактивном режиме подключения терминала, поименуйте его mynode, передайте две переменные среды NAME=<ваше имя> и SURNAME=<ваша фамилия>
+
+ docker run -it -e NAME=dmitriy -e SURNAME=nazarov --name mynode  node:15.14-alpine
+
+3.В интерактивной среде выполнения node выполните скрипт, который выведет на экран приветсвтие: Привет, <ваше имя> <ваша фамилия>!, эти данные должны быть получены из переменных среды
+
+> console.log(`Привет,  ${process.env.NAME} ${process.env.SURNAME}`)
+Привет,  dmitriy nazarov
+
+4.Остановите контейнер
+
+docker> docker stop mynode
+mynode
+docker> docker ps -a      
+CONTAINER ID   IMAGE               COMMAND                  CREATED         STATUS                      PORTS     NAMES
+8b230370ffb7   node:15.14-alpine   "docker-entrypoint.s…"   7 minutes ago   Exited (0) 28 seconds ago             mynode
+
+5.Удалите образ node версии 15.14
+
+docker> docker rmi node:15.14-alpine -f
+Untagged: node:15.14-alpine
+Untagged: node@sha256:6edd37368174c15d4cc59395ca2643be8e2a1c9846714bc92c5f5c5a92fb8929
+Deleted: sha256:75631da67663db1d5f3518892db3259b52f105d4b692f88cf2457a0b27abf0e1
+docker> docker images
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE

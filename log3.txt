@@ -1,0 +1,24 @@
+1.Загрузите образ node версии 15.14
+ docker run -it --rm node:15.14-alpine 
+docker> docker images
+REPOSITORY   TAG            IMAGE ID       CREATED         SIZE 
+node         15.14-alpine   75631da67663   17 months ago   112MB
+
+2.Запустите контейнер с именем first_node из образа node версии 15.14 в фоновом режиме, подключив папку data из текущей директории в /var/first/data контейнера
+
+> docker run -t -d  --name first_node -v $pwd:\var\first\data  node:15.14-alpin
+
+
+
+4.Подключитесь к контейнеру first_node с помощью exec и создайте текстовый файл любого содержания в /var/first/data
+ docker  exec -it first_node /bin/sh     
+
+Не вижу папки после выполения команды
+
+Вывод / # ls
+H:\Неотология\Node neotologia\docker\var\first\data  media                                                sbin
+bin                                                  mnt                                                  srv
+dev                                                  opt                                                  sys
+etc                                                  proc                                                 tmp
+home                                                 root                                                 usr
+lib                                                  run                                                  var
